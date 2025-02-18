@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Chatform from "./components/Chatform";
 import ChatbotIcon from "./components/ChatbotIcon";
 import ChatMessage from "./components/ChatMessage";
+import { makeRequest } from "./apis";
 
 interface Message {
   role: "user" | "bot";
@@ -13,12 +14,14 @@ const App = () => {
   const [showChatbot, setChatbot] = useState<boolean>(false); // Initialize with a boolean value
   const chatBodyRef = useRef<HTMLDivElement>(null);
 
-  const botResponse = (history: Message[]) => {
+  const botResponse = async(history: Message[]) => {
     console.log(history);
     // setchatHistory((prev) => [
     //   ...prev,
     //   { role: "bot", text: "This is a bot response." },
     // ]);
+    const response = await makeRequest.post('/chat', {message: history[history.length - 1].text});
+    setchatHistory((prev) => [...prev, { role: "bot", text: response.data.bot }]);
   };
 
   useEffect(() => {
