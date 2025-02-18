@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Chatform from "./components/Chatform";
 import ChatbotIcon from "./components/ChatbotIcon";
 import ChatMessage from "./components/ChatMessage";
@@ -11,6 +11,7 @@ interface Message {
 const App = () => {
   const [chatHistory, setchatHistory] = useState<Message[]>([]);
   const [showChatbot, setChatbot] = useState<boolean>(false); // Initialize with a boolean value
+  const chatBodyRef = useRef<HTMLDivElement>(null);
 
   const botResponse = (history: Message[]) => {
     console.log(history);
@@ -19,6 +20,12 @@ const App = () => {
     //   { role: "bot", text: "This is a bot response." },
     // ]);
   };
+
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
 
   return (
     <div className={`container ${showChatbot ? "show-chatbot" : "" }`}>
@@ -36,7 +43,7 @@ const App = () => {
           <button onClick={() => setChatbot(prev => !prev)} className="material-symbols-rounded">keyboard_arrow_down</button>
         </div>
 
-        <div className="body">
+        <div ref={chatBodyRef} className="body">
           <div className="message messagebot">
             <ChatbotIcon />
             <p className="message-text">

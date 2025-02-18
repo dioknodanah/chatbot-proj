@@ -135,6 +135,7 @@ body {
   margin-bottom: 82px;
   scrollbar-width: thin;
   scrollbar-color: #ddd3f9 transparent;
+  scroll-behavior: auto;
 }
 
 .body .message {
