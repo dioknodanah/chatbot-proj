@@ -29,6 +29,11 @@ const App = () => {
 
   return (
     <div className={`container ${showChatbot ? "show-chatbot" : "" }`}>
+      {/* 🌌 Add Parallax Stars */}
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
       <button onClick={() => setChatbot(prev => !prev)} id="chatbot-toggle">
         <span className="material-symbols-rounded">mode_comment</span>
         <span className="material-symbols-rounded">close</span>
